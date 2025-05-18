@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loja Cidade RP</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2b0057, #5f1b9b);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #d9a9ff;
+    }
+
+    .produtos h2 {
+      margin-top: 40px;
+      border-bottom: 2px solid #fff2;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px #0005;
+    }
+
+    .card button {
+      background: #b765f6;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card button:hover {
+      background: #9f45e2;
+    }
+
+    .carrinho {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      margin-top: 40px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 15px #000;
+    }
+
+    #lista-carrinho {
+      list-style: none;
+      padding: 0;
+    }
+
+    #lista-carrinho li {
+      margin: 8px 0;
+    }
+
+    #lista-carrinho li button {
+      margin-left: 10px;
+      background: #e04e4e;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    /* Estilos da Modal */
+    .modal {
+      display: none; /* Escondida por padrão */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #3b0070;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      color: #eee;
+      box-shadow: 0 0 15px #a74fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .close {
+      color: #ccc;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: white;
+    }
+
+    .modal-content button {
+      background-color: #a74fff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .modal-content button:hover {
+      background-color: #7a2fcc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img
+      src="https://via.placeholder.com/150x50?text=LOGO+RP"
+      alt="Logo da Cidade RP"
+      class="logo"
+    />
+    <h1>Loja Oficial da Cidade RP</h1>
+  </header>
+
+  <main class="produtos">
+    <h2>Planos VIP</h2>
+    <div class="grid">
+      <div class="card" data-nome="VIP Bronze" data-preco="9.90">
+        VIP Bronze - R$ 9,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="VIP Prata" data-preco="19.90">
+        VIP Prata - R$ 19,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="VIP Ouro" data-preco="29.90">
+        VIP Ouro - R$ 29,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="VIP Raro" data-preco="29.90">
+        VIP Raro - R$ 29,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="VIP Patrocinador" data-preco="69.90">
+        VIP Patrocinador - R$ 69,90
+        <button onclick="adicionar(this)">Comprar</button>
+      </div>
+    </div>
+
+    <h2>IDs Personalizados</h2>
+    <div class="grid">
+      <div class="card" data-nome="ID 3 a 99" data-preco="99.90">
+        ID 3 a 99 - R$ 99,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="ID 100 a 850" data-preco="79.90">
+        ID 100 a 850 - R$ 79,90
+        <button onclick="adicionar(this)">Comprar</button>
+      </div>
+    </div>
+
+    <h2>Serviços Extras</h2>
+    <div class="grid">
+      <div class="card" data-nome="Facção" data-preco="29.90">
+        Facção - R$ 29,90 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="Corporação" data-preco="29.90">
+        Corporação - R$ 29,90
+        <button onclick="adicionar(this)">Comprar</button>
+      </div>
+      <div class="card" data-nome="VP" data-preco="1.00">
+        VP - R$ 1,00 <button onclick="adicionar(this)">Comprar</button>
+      </div>
+    </div>
+  </main>
+
+  <section class="carrinho">
+    <h2>Carrinho</h2>
+    <ul id="lista-carrinho"></ul>
+    <p id="total">Total: R$ 0,00</p>
+    <button onclick="finalizarCompra()">Finalizar Compra (Pix)</button>
+  </section>
+
+  <!-- Modal do Pix -->
+  <div id="modalPix" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2>Pagamento via Pix</h2>
+      <p><strong>Pix:</strong> 108.357.004-88</p>
+      <p><strong>Banco:</strong> ITI ITAU</p>
+      <p><strong>Nome do Titular:</strong> José Lima Rocha Net</p>
+      <button onclick="copiarPix()">Copiar Dados do Pix</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Cidade RP - Loja Fictícia</p>
+  </footer>
+
+  <script>
+    let carrinho = [];
+    let total = 0;
+
+    function adicionar(botao) {
+      const card = botao.parentElement;
+      const nome = card.getAttribute('data-nome');
+      const preco = parseFloat(card.getAttribute('data-preco'));
+
+      carrinho.push({ nome, preco });
+      total += preco;
+
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const lista = document.getElementById('lista-carrinho');
+      const totalEl = document.getElementById('total');
+
+      lista.innerHTML = '';
+      carrinho.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} - R$ ${item.preco.toFixed(2)}`;
+
+        const btnRemover = document.createElement('button');
+        btnRemover.textContent = 'x';
+        btnRemover.onclick = () => removerItem(index);
+        li.appendChild(btnRemover);
+
+        lista.appendChild(li);
+      });
+
+      totalEl.textContent = `Total: R$ ${total.toFixed(2)}`;
+    }
+
+    function removerItem(index) {
+      total -= carrinho[index].preco;
+      carrinho.splice(index, 1);
+      atualizarCarrinho();
+    }
+
+    function finalizarCompra() {
+      if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+      const modal = document.getElementById('modalPix');
+      modal.style.display = 'block';
+    }
+
+    function fecharModal() {
+      const modal = document.getElementById('modalPix');
+      modal.style.display = 'none';
+    }
+
+    function copiarPix() {
+      const pixDados = `Pix: 108.357.004-88\nBanco: ITI ITAU\nNome do Titular: José Lima Rocha Net`;
+      navigator.clipboard
+        .writeText(pixDados)
+        .then(() => {
+          alert('Dados do Pix copiados para a área de transferência!');
+        })
+        .catch(() => {
+          alert('Não foi possível copiar os dados. Por favor, copie manualmente.');
+        });
+    }
+
+    // Fechar modal ao clicar fora do conteúdo
+    window.onclick = function (event) {
+      const modal = document.getElementById('modalPix');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
